@@ -1,0 +1,52 @@
+[
+  {
+    "question": "What is RAG and how does it work?",
+    "ground_truth": "RAG (Retrieval-Augmented Generation) enhances LLMs by retrieving relevant external knowledge at query time. It has two phases: indexing (documents loaded, split, embedded into a vector store) and retrieval (query is embedded, similar chunks fetched, passed to LLM with the question).",
+    "relevant_docs": ["langchain_retrieval.md"]
+  },
+  {
+    "question": "What vector stores does LangChain support?",
+    "ground_truth": "LangChain supports many vector stores including Chroma, Pinecone, PGVector, and others. They store embeddings and support similarity search to retrieve relevant document chunks.",
+    "relevant_docs": ["integrations_vectorstores.md", "integrations_providers_chroma.md"]
+  },
+  {
+    "question": "What is the difference between agents and chains in LangChain?",
+    "ground_truth": "In chains the sequence of actions is hardcoded. In agents a language model acts as a reasoning engine to dynamically decide which tools to call and in what order, enabling flexible multi-step workflows.",
+    "relevant_docs": ["langchain_agents.md"]
+  },
+  {
+    "question": "What is LangGraph and when should I use it?",
+    "ground_truth": "LangGraph is a low-level agent orchestration framework for building stateful, multi-step workflows. Use it when you need cycles, branching, durable execution, human-in-the-loop patterns, or fine-grained control over agent state.",
+    "relevant_docs": ["langgraph_overview.md"]
+  },
+  {
+    "question": "How to add memory to a LangChain agent?",
+    "ground_truth": "Pass a checkpointer to create_agent for short-term (thread-level) memory, or a store for long-term (cross-session) memory. InMemoryStore works for development; use PostgreSQL or Redis for production.",
+    "relevant_docs": ["langchain_short-term-memory.md", "langchain_long-term-memory.md"]
+  },
+  {
+    "question": "What retrieval strategies are available in LangChain?",
+    "ground_truth": "LangChain supports 2-Step RAG (retrieve then generate), Agentic RAG (agent decides when to retrieve), and Hybrid RAG (combining vector search with keyword search). Each component like loaders, splitters, embeddings and vector stores is modular and swappable.",
+    "relevant_docs": ["langchain_retrieval.md"]
+  },
+  {
+    "question": "How does LangChain support streaming?",
+    "ground_truth": "LangChain agents support streaming of tokens and intermediate steps. You can stream both the final answer tokens and tool call events using the agent's stream() method, enabling real-time UI updates.",
+    "relevant_docs": ["langchain_streaming.md"]
+  },
+  {
+    "question": "What tools and integrations does LangChain support?",
+    "ground_truth": "LangChain provides built-in tools and supports custom tools via the @tool decorator. It integrates with providers like OpenAI, Anthropic, Google, Ollama, HuggingFace, AWS Bedrock, and many others.",
+    "relevant_docs": ["langchain_tools.md", "integrations_providers_overview.md"]
+  },
+  {
+    "question": "How to build a knowledge base for RAG in LangChain?",
+    "ground_truth": "Use document loaders to ingest data, text splitters to chunk it into manageable pieces, an embedding model to convert chunks to vectors, and a vector store to persist and search them. The pipeline is modular so each component can be swapped independently.",
+    "relevant_docs": ["langchain_retrieval.md"]
+  },
+  {
+    "question": "What is structured output in LangChain and how to use it?",
+    "ground_truth": "Structured output lets you constrain LLM responses to a defined schema (e.g. a Pydantic model). Use model.with_structured_output(Schema) to get typed, validated JSON responses instead of raw text.",
+    "relevant_docs": ["langchain_structured-output.md"]
+  }
+]

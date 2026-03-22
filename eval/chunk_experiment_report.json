@@ -1,0 +1,510 @@
+{
+  "experiment_config": {
+    "docs_dir": "./data/langchain_docs",
+    "test_set": "./eval/test_set.json",
+    "chunk_sizes": [
+      256,
+      512,
+      1024
+    ],
+    "overlap_ratio": "20% of chunk_size",
+    "top_k": 5
+  },
+  "best_config": {
+    "chunk_size": 512,
+    "chunk_overlap": 102,
+    "composite_score": 0.4237,
+    "reason": "Highest mean of faithfulness + answer_relevancy + context_precision + context_recall"
+  },
+  "results": [
+    {
+      "chunk_size": 256,
+      "chunk_overlap": 51,
+      "total_chunks": 2189,
+      "faithfulness": 0.2942,
+      "answer_relevancy": 0.6104,
+      "context_precision": 0.2269,
+      "context_recall": 0.4967,
+      "avg_latency_ms": 3846.0,
+      "collection_name": "langchain_docs_256",
+      "per_case": [
+        {
+          "question": "What is RAG and how does it work?",
+          "faithfulness": 0.35,
+          "answer_relevancy": 0.75,
+          "context_precision": 0.1828,
+          "context_recall": 0.3529,
+          "latency_ms": 10438.48,
+          "sources": [
+            "langchain_retrieval.md",
+            "langchain_retrieval.md",
+            "langchain_retrieval.md",
+            "langchain_retrieval.md",
+            "langchain_retrieval.md"
+          ]
+        },
+        {
+          "question": "What vector stores does LangChain support?",
+          "faithfulness": 0.2766,
+          "answer_relevancy": 0.75,
+          "context_precision": 0.1672,
+          "context_recall": 0.45,
+          "latency_ms": 1550.3,
+          "sources": [
+            "integrations_providers_overview.md",
+            "integrations_vectorstores.md",
+            "langchain_philosophy.md",
+            "integrations_vectorstores.md",
+            "langgraph_add-memory.md"
+          ]
+        },
+        {
+          "question": "What is the difference between agents and chains in LangChain?",
+          "faithfulness": 0.1429,
+          "answer_relevancy": 0.4286,
+          "context_precision": 0.261,
+          "context_recall": 0.4545,
+          "latency_ms": 2002.4,
+          "sources": [
+            "concepts_products.md",
+            "langchain_philosophy.md",
+            "langchain_philosophy.md",
+            "concepts_products.md",
+            "concepts_products.md"
+          ]
+        },
+        {
+          "question": "What is LangGraph and when should I use it?",
+          "faithfulness": 0.0909,
+          "answer_relevancy": 0.3333,
+          "context_precision": 0.2278,
+          "context_recall": 0.6087,
+          "latency_ms": 1836.98,
+          "sources": [
+            "langgraph_application-structure.md",
+            "langgraph_application-structure.md",
+            "langgraph_application-structure.md",
+            "learn.md",
+            "concepts_products.md"
+          ]
+        },
+        {
+          "question": "How to add memory to a LangChain agent?",
+          "faithfulness": 0.3256,
+          "answer_relevancy": 0.6,
+          "context_precision": 0.3,
+          "context_recall": 0.5882,
+          "latency_ms": 4058.44,
+          "sources": [
+            "langchain_long-term-memory.md",
+            "langchain_short-term-memory.md",
+            "langchain_long-term-memory.md",
+            "concepts_memory.md",
+            "langchain_short-term-memory.md"
+          ]
+        },
+        {
+          "question": "What retrieval strategies are available in LangChain?",
+          "faithfulness": 0.2,
+          "answer_relevancy": 0.4,
+          "context_precision": 0.0725,
+          "context_recall": 0.25,
+          "latency_ms": 1183.58,
+          "sources": [
+            "langchain_retrieval.md",
+            "langchain_messages.md",
+            "langchain_long-term-memory.md",
+            "concepts_memory.md",
+            "learn.md"
+          ]
+        },
+        {
+          "question": "How does LangChain support streaming?",
+          "faithfulness": 0.325,
+          "answer_relevancy": 0.6667,
+          "context_precision": 0.3177,
+          "context_recall": 0.6667,
+          "latency_ms": 3091.42,
+          "sources": [
+            "langgraph_streaming.md",
+            "langchain_models.md",
+            "langchain_streaming.md",
+            "langchain_models.md",
+            "langgraph_streaming.md"
+          ]
+        },
+        {
+          "question": "What tools and integrations does LangChain support?",
+          "faithfulness": 0.3939,
+          "answer_relevancy": 0.8,
+          "context_precision": 0.2257,
+          "context_recall": 0.5909,
+          "latency_ms": 2797.04,
+          "sources": [
+            "langchain_philosophy.md",
+            "integrations_providers_overview.md",
+            "learn.md",
+            "langchain_overview.md",
+            "langgraph_overview.md"
+          ]
+        },
+        {
+          "question": "How to build a knowledge base for RAG in LangChain?",
+          "faithfulness": 0.4889,
+          "answer_relevancy": 0.5,
+          "context_precision": 0.1941,
+          "context_recall": 0.4333,
+          "latency_ms": 5241.6,
+          "sources": [
+            "langchain_retrieval.md",
+            "langchain_retrieval.md",
+            "langchain_retrieval.md",
+            "langchain_retrieval.md",
+            "langchain_philosophy.md"
+          ]
+        },
+        {
+          "question": "What is structured output in LangChain and how to use it?",
+          "faithfulness": 0.3481,
+          "answer_relevancy": 0.875,
+          "context_precision": 0.32,
+          "context_recall": 0.5714,
+          "latency_ms": 6259.55,
+          "sources": [
+            "langchain_structured-output.md",
+            "langchain_agents.md",
+            "langchain_structured-output.md",
+            "langchain_agents.md",
+            "langchain_structured-output.md"
+          ]
+        }
+      ]
+    },
+    {
+      "chunk_size": 512,
+      "chunk_overlap": 102,
+      "total_chunks": 1596,
+      "faithfulness": 0.3049,
+      "answer_relevancy": 0.6455,
+      "context_precision": 0.2374,
+      "context_recall": 0.5069,
+      "avg_latency_ms": 3998.4,
+      "collection_name": "langchain_docs_512",
+      "per_case": [
+        {
+          "question": "What is RAG and how does it work?",
+          "faithfulness": 0.2553,
+          "answer_relevancy": 0.75,
+          "context_precision": 0.1982,
+          "context_recall": 0.3529,
+          "latency_ms": 4432.01,
+          "sources": [
+            "langchain_retrieval.md",
+            "langchain_retrieval.md",
+            "langchain_retrieval.md",
+            "langchain_retrieval.md",
+            "langchain_philosophy.md"
+          ]
+        },
+        {
+          "question": "What vector stores does LangChain support?",
+          "faithfulness": 0.2333,
+          "answer_relevancy": 0.75,
+          "context_precision": 0.1695,
+          "context_recall": 0.4,
+          "latency_ms": 3310.36,
+          "sources": [
+            "integrations_providers_overview.md",
+            "integrations_vectorstores.md",
+            "integrations_vectorstores.md",
+            "integrations_providers_chroma.md",
+            "integrations_document_loaders.md"
+          ]
+        },
+        {
+          "question": "What is the difference between agents and chains in LangChain?",
+          "faithfulness": 0.1591,
+          "answer_relevancy": 0.5714,
+          "context_precision": 0.3098,
+          "context_recall": 0.4545,
+          "latency_ms": 4629.16,
+          "sources": [
+            "concepts_products.md",
+            "langchain_philosophy.md",
+            "langchain_philosophy.md",
+            "langchain_philosophy.md",
+            "concepts_products.md"
+          ]
+        },
+        {
+          "question": "What is LangGraph and when should I use it?",
+          "faithfulness": 0.3721,
+          "answer_relevancy": 0.6667,
+          "context_precision": 0.2278,
+          "context_recall": 0.6087,
+          "latency_ms": 2195.94,
+          "sources": [
+            "langgraph_application-structure.md",
+            "langgraph_application-structure.md",
+            "langgraph_application-structure.md",
+            "learn.md",
+            "concepts_products.md"
+          ]
+        },
+        {
+          "question": "How to add memory to a LangChain agent?",
+          "faithfulness": 0.2338,
+          "answer_relevancy": 0.6,
+          "context_precision": 0.2958,
+          "context_recall": 0.5882,
+          "latency_ms": 5694.38,
+          "sources": [
+            "langchain_long-term-memory.md",
+            "langchain_short-term-memory.md",
+            "langchain_long-term-memory.md",
+            "concepts_memory.md",
+            "langchain_studio.md"
+          ]
+        },
+        {
+          "question": "What retrieval strategies are available in LangChain?",
+          "faithfulness": 0.129,
+          "answer_relevancy": 0.4,
+          "context_precision": 0.1064,
+          "context_recall": 0.3571,
+          "latency_ms": 2687.41,
+          "sources": [
+            "langchain_retrieval.md",
+            "langchain_messages.md",
+            "learn.md",
+            "langchain_retrieval.md",
+            "integrations_providers_aws.md"
+          ]
+        },
+        {
+          "question": "How does LangChain support streaming?",
+          "faithfulness": 0.4804,
+          "answer_relevancy": 0.6667,
+          "context_precision": 0.3258,
+          "context_recall": 0.6667,
+          "latency_ms": 3366.21,
+          "sources": [
+            "langchain_models.md",
+            "langgraph_streaming.md",
+            "langchain_streaming.md",
+            "langchain_models.md",
+            "langgraph_streaming.md"
+          ]
+        },
+        {
+          "question": "What tools and integrations does LangChain support?",
+          "faithfulness": 0.4085,
+          "answer_relevancy": 0.8,
+          "context_precision": 0.2353,
+          "context_recall": 0.6364,
+          "latency_ms": 2094.13,
+          "sources": [
+            "integrations_providers_overview.md",
+            "learn.md",
+            "langgraph_overview.md",
+            "langchain_models.md",
+            "concepts_products.md"
+          ]
+        },
+        {
+          "question": "How to build a knowledge base for RAG in LangChain?",
+          "faithfulness": 0.3953,
+          "answer_relevancy": 0.375,
+          "context_precision": 0.1989,
+          "context_recall": 0.4333,
+          "latency_ms": 6559.92,
+          "sources": [
+            "langchain_retrieval.md",
+            "langchain_retrieval.md",
+            "langchain_retrieval.md",
+            "langchain_philosophy.md",
+            "langchain_retrieval.md"
+          ]
+        },
+        {
+          "question": "What is structured output in LangChain and how to use it?",
+          "faithfulness": 0.3819,
+          "answer_relevancy": 0.875,
+          "context_precision": 0.306,
+          "context_recall": 0.5714,
+          "latency_ms": 5014.01,
+          "sources": [
+            "langchain_structured-output.md",
+            "langchain_structured-output.md",
+            "langchain_agents.md",
+            "langchain_agents.md",
+            "langchain_structured-output.md"
+          ]
+        }
+      ]
+    },
+    {
+      "chunk_size": 1024,
+      "chunk_overlap": 205,
+      "total_chunks": 1440,
+      "faithfulness": 0.3062,
+      "answer_relevancy": 0.6281,
+      "context_precision": 0.2343,
+      "context_recall": 0.5002,
+      "avg_latency_ms": 3930.7,
+      "collection_name": "langchain_docs_1024",
+      "per_case": [
+        {
+          "question": "What is RAG and how does it work?",
+          "faithfulness": 0.3165,
+          "answer_relevancy": 0.75,
+          "context_precision": 0.1938,
+          "context_recall": 0.3235,
+          "latency_ms": 4042.09,
+          "sources": [
+            "langchain_retrieval.md",
+            "langchain_retrieval.md",
+            "langchain_retrieval.md",
+            "langchain_retrieval.md",
+            "langchain_retrieval.md"
+          ]
+        },
+        {
+          "question": "What vector stores does LangChain support?",
+          "faithfulness": 0.4118,
+          "answer_relevancy": 0.75,
+          "context_precision": 0.1695,
+          "context_recall": 0.4,
+          "latency_ms": 1835.35,
+          "sources": [
+            "integrations_providers_overview.md",
+            "integrations_vectorstores.md",
+            "integrations_vectorstores.md",
+            "integrations_providers_chroma.md",
+            "integrations_document_loaders.md"
+          ]
+        },
+        {
+          "question": "What is the difference between agents and chains in LangChain?",
+          "faithfulness": 0.4045,
+          "answer_relevancy": 0.7143,
+          "context_precision": 0.3164,
+          "context_recall": 0.5,
+          "latency_ms": 3267.86,
+          "sources": [
+            "concepts_products.md",
+            "langchain_philosophy.md",
+            "langchain_philosophy.md",
+            "concepts_products.md",
+            "concepts_products.md"
+          ]
+        },
+        {
+          "question": "What is LangGraph and when should I use it?",
+          "faithfulness": 0.5373,
+          "answer_relevancy": 0.8333,
+          "context_precision": 0.2278,
+          "context_recall": 0.6087,
+          "latency_ms": 1906.02,
+          "sources": [
+            "langgraph_application-structure.md",
+            "langgraph_application-structure.md",
+            "langgraph_application-structure.md",
+            "learn.md",
+            "concepts_products.md"
+          ]
+        },
+        {
+          "question": "How to add memory to a LangChain agent?",
+          "faithfulness": 0.2353,
+          "answer_relevancy": 0.6,
+          "context_precision": 0.2958,
+          "context_recall": 0.5882,
+          "latency_ms": 3774.15,
+          "sources": [
+            "langchain_long-term-memory.md",
+            "langchain_short-term-memory.md",
+            "langchain_long-term-memory.md",
+            "concepts_memory.md",
+            "langchain_studio.md"
+          ]
+        },
+        {
+          "question": "What retrieval strategies are available in LangChain?",
+          "faithfulness": 0.1071,
+          "answer_relevancy": 0.4,
+          "context_precision": 0.1135,
+          "context_recall": 0.3571,
+          "latency_ms": 3299.54,
+          "sources": [
+            "langchain_retrieval.md",
+            "langchain_messages.md",
+            "langchain_retrieval.md",
+            "learn.md",
+            "integrations_providers_aws.md"
+          ]
+        },
+        {
+          "question": "How does LangChain support streaming?",
+          "faithfulness": 0,
+          "answer_relevancy": 0.3333,
+          "context_precision": 0.2912,
+          "context_recall": 0.5833,
+          "latency_ms": 3468.58,
+          "sources": [
+            "langgraph_streaming.md",
+            "langchain_streaming.md",
+            "langchain_models.md",
+            "langgraph_streaming.md",
+            "langgraph_overview.md"
+          ]
+        },
+        {
+          "question": "What tools and integrations does LangChain support?",
+          "faithfulness": 0.1818,
+          "answer_relevancy": 0.4,
+          "context_precision": 0.2353,
+          "context_recall": 0.6364,
+          "latency_ms": 1723.5,
+          "sources": [
+            "integrations_providers_overview.md",
+            "learn.md",
+            "langgraph_overview.md",
+            "langchain_models.md",
+            "concepts_products.md"
+          ]
+        },
+        {
+          "question": "How to build a knowledge base for RAG in LangChain?",
+          "faithfulness": 0.456,
+          "answer_relevancy": 0.875,
+          "context_precision": 0.1939,
+          "context_recall": 0.4333,
+          "latency_ms": 9515.17,
+          "sources": [
+            "langchain_retrieval.md",
+            "langchain_retrieval.md",
+            "langchain_retrieval.md",
+            "langchain_retrieval.md",
+            "learn.md"
+          ]
+        },
+        {
+          "question": "What is structured output in LangChain and how to use it?",
+          "faithfulness": 0.4118,
+          "answer_relevancy": 0.625,
+          "context_precision": 0.306,
+          "context_recall": 0.5714,
+          "latency_ms": 6475.12,
+          "sources": [
+            "langchain_structured-output.md",
+            "langchain_structured-output.md",
+            "langchain_agents.md",
+            "langchain_agents.md",
+            "langchain_structured-output.md"
+          ]
+        }
+      ]
+    }
+  ]
+}

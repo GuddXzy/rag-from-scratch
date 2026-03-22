@@ -1,0 +1,11 @@
+services:
+  rag-api:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./data:/app/data          # 持久化向量数据库
+      - ./.env:/app/.env:ro       # 环境变量
+    environment:
+      - CHROMA_PERSIST_DIR=/app/data/chroma_db
+    restart: unless-stopped

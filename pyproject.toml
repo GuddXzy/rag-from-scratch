@@ -1,0 +1,51 @@
+[project]
+name = "langchain-docs-rag"
+version = "0.1.0"
+description = "Production-grade RAG system for LangChain documentation Q&A"
+requires-python = ">=3.11"
+dependencies = [
+    # --- 核心框架 ---
+    "langchain>=0.3.0",
+    "langchain-community>=0.3.0",
+    "langchain-anthropic>=0.3.0",
+    "langchain-text-splitters>=0.3.0",
+
+    # --- Embedding ---
+    "sentence-transformers>=3.0.0",
+
+    # --- 向量数据库 ---
+    "chromadb>=0.5.0",
+
+    # --- BM25 关键词检索 ---
+    "rank-bm25>=0.2.2",
+
+    # --- 文档解析 ---
+    "beautifulsoup4>=4.12.0",
+    "markdownify>=0.13.0",
+    "unstructured>=0.15.0",
+
+    # --- API 服务 ---
+    "fastapi>=0.115.0",
+    "uvicorn>=0.30.0",
+    "pydantic>=2.0",
+
+    # --- 评估 ---
+    "ragas>=0.2.0",
+    "datasets>=3.0.0",
+
+    # --- 工具 ---
+    "python-dotenv>=1.0.0",
+    "rich>=13.0.0",          # 漂亮的终端输出
+    "httpx>=0.27.0",
+    "tqdm>=4.66.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "pytest-asyncio>=0.24.0",
+]
+
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.build_meta"
