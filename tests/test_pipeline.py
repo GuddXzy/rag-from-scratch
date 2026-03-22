@@ -20,16 +20,23 @@ SAMPLE_MD = """# Test Document
 ## Section 1
 
 This is the first section with some content about LangChain.
-LangChain is a framework for building applications with LLMs.
+LangChain is a framework for building applications with large language models (LLMs).
+It provides tools for chaining together prompts, retrievers, and output parsers.
+Developers use LangChain to build chatbots, document Q&A systems, and agents.
 
 ## Section 2
 
 This is the second section about RAG (Retrieval Augmented Generation).
-RAG combines retrieval with generation for better answers.
+RAG combines retrieval with generation for better answers by grounding the model
+in external knowledge. Instead of relying solely on parametric memory, the model
+is given relevant context chunks retrieved from a vector database at query time.
 
 ## Section 3
 
-Agents use LLMs to decide which actions to take dynamically.
+Agents use LLMs to decide which actions to take dynamically at each step.
+Unlike chains with a fixed sequence of steps, agents can choose tools, call APIs,
+or perform calculations based on the user query and the results of previous steps.
+This makes agents flexible for open-ended tasks that require multi-step reasoning.
 """
 
 SAMPLE_HTML = """
@@ -39,8 +46,12 @@ SAMPLE_HTML = """
 <nav>Navigation bar</nav>
 <main>
 <h1>Main Content</h1>
-<p>This is the important text about vector databases.</p>
-<p>ChromaDB is lightweight and great for prototyping.</p>
+<p>This is the important text about vector databases and their role in RAG systems.</p>
+<p>ChromaDB is a lightweight, open-source vector database that is great for
+prototyping and small-to-medium scale deployments. It supports cosine similarity
+and runs fully in-process without any external infrastructure dependencies.</p>
+<p>Other popular choices include Pinecone for managed cloud deployments and
+Qdrant for self-hosted production use cases with advanced filtering capabilities.</p>
 </main>
 <footer>Footer content</footer>
 </body>
