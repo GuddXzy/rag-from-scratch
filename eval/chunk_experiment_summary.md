@@ -1,6 +1,6 @@
 # Chunk Size 对比实验报告
 
-> 文档集: `data/langchain_docs` (100 docs) | 测试集: 10 条问题 | 模型: qwen2.5:3b (Ollama) | Embedding: all-MiniLM-L6-v2
+> 文档集: `data/langchain_docs` (100 docs) | 测试集: 10 条问题 | 模型: qwen2.5:7b (Ollama) | Embedding: all-MiniLM-L6-v2
 
 ## 指标对比表
 

@@ -239,7 +239,7 @@ class RAGEvaluator:
 
         lines = [
             "# RAG 评估报告\n",
-            f"> 测试用例: {n} 条 | 模型: qwen2.5:3b (Ollama) | Embedding: all-MiniLM-L6-v2\n",
+            f"> 测试用例: {n} 条 | 模型: qwen2.5:7b (Ollama) | Embedding: all-MiniLM-L6-v2\n",
             "## 汇总指标\n",
             "| 指标 | 得分 | 可视化 | 说明 |",
             "| --- | ---: | --- | --- |",

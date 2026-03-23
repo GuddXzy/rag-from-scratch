@@ -18,7 +18,7 @@ CHROMA_PERSIST_DIR = os.getenv("CHROMA_PERSIST_DIR", str(DATA_DIR / "chroma_db")
 EMBEDDING_MODEL = os.getenv("EMBEDDING_MODEL", "sentence-transformers/all-MiniLM-L6-v2")
 
 # === LLM 配置 ===
-LLM_MODEL = os.getenv("LLM_MODEL", "qwen2.5:3b")
+LLM_MODEL = os.getenv("LLM_MODEL", "qwen2.5:7b")
 OLLAMA_BASE_URL = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434/v1")
 
 # === 分块配置 (这些参数面试必问，要能解释为什么这么选) ===

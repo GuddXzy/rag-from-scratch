@@ -1,6 +1,6 @@
 # RAG 评估报告
 
-> 测试用例: 10 条 | 模型: qwen2.5:3b (Ollama) | Embedding: all-MiniLM-L6-v2
+> 测试用例: 10 条 | 模型: qwen2.5:7b (Ollama) | Embedding: all-MiniLM-L6-v2
 
 ## 汇总指标
 

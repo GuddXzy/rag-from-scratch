@@ -5,7 +5,7 @@
 ![Python](https://img.shields.io/badge/Python-3.11+-3776AB?style=flat&logo=python&logoColor=white)
 ![LangChain](https://img.shields.io/badge/LangChain-0.3+-1C3C3C?style=flat)
 ![ChromaDB](https://img.shields.io/badge/ChromaDB-0.5+-FF6B35?style=flat)
-![Ollama](https://img.shields.io/badge/Ollama-qwen2.5:3b-black?style=flat)
+![Ollama](https://img.shields.io/badge/Ollama-qwen2.5:7b-black?style=flat)
 ![FastAPI](https://img.shields.io/badge/FastAPI-0.115+-009688?style=flat&logo=fastapi&logoColor=white)
 ![Streamlit](https://img.shields.io/badge/Streamlit-1.55+-FF4B4B?style=flat&logo=streamlit&logoColor=white)
 ![Docker](https://img.shields.io/badge/Docker-ready-2496ED?style=flat&logo=docker&logoColor=white)
@@ -29,7 +29,7 @@ flowchart LR
         G --> I["RRF 融合\nscore = Σ 1/(60+rank)"]
         H --> I
         I --> J[Top-K Chunks]
-        J --> K["RAGGenerator\nOllama qwen2.5:3b"]
+        J --> K["RAGGenerator\nOllama qwen2.5:7b"]
         K --> L[回答 + 来源]
     end
 
@@ -61,7 +61,7 @@ flowchart LR
 
 - **混合检索** — 余弦相似度 + BM25，通过 Reciprocal Rank Fusion 融合（`score = Σ 1/(60 + rank)`）
 - **100 篇** LangChain 官方文档，最优配置下生成 **1,596 个 chunks**
-- **完全离线** — 通过 Ollama 本地运行 qwen2.5:3b，无需云端 API
+- **完全离线** — 通过 Ollama 本地运行 qwen2.5:7b，无需云端 API
 - **双接口** — RESTful API（FastAPI + Swagger UI）+ 交互式聊天前端（Streamlit）
 - **评估框架** — 4 项指标（忠实度 / 答案相关性 / 上下文精度 / 上下文召回），零额外 API 消耗
 - **实验驱动配置** — 对 256 / 512 / 1024 三种 chunk_size 做了对照实验并公开结果
@@ -72,7 +72,7 @@ flowchart LR
 
 ### Chunk Size 对比实验
 
-> 语料：100 篇文档 | 测试集：10 条问题 | LLM：qwen2.5:3b | Embedding：all-MiniLM-L6-v2
+> 语料：100 篇文档 | 测试集：10 条问题 | LLM：qwen2.5:7b | Embedding：all-MiniLM-L6-v2
 
 | Chunk Size | Overlap | Chunks | Faithfulness | Answer Relevancy | Context Precision | Context Recall | Avg Latency | Composite ↑ |
 |---:|---:|---:|---:|---:|---:|---:|---:|---:|
@@ -102,7 +102,7 @@ Composite = 四项指标等权平均。完整原始数据：[`eval/chunk_experim
 - 安装并运行 [Ollama](https://ollama.ai)
 
 ```bash
-ollama pull qwen2.5:3b
+ollama pull qwen2.5:7b
 ```
 
 ### 安装
@@ -253,7 +253,7 @@ ChromaDB 完全在进程内运行，无需独立服务、无 API Key、无流量
 
 1. **Cross-encoder 重排序** — 引入 `ms-marco-MiniLM` 对 Top-K chunks 做二次排序，提升 Context Precision
 2. **多轮记忆** — 通过 `ConversationBufferMemory` 持久化对话历史，支持连贯的追问
-3. **更大本地模型** — qwen2.5:3b 换为 qwen2.5:7b 或 llama3.1:8b；生成器与模型无关，直接换配置
+3. **更大本地模型** — qwen2.5:7b 换为 qwen2.5:14b 或 llama3.1:8b；生成器与模型无关，直接换配置
 4. **评估 CI** — 在 GitHub Actions 中每次 PR 自动运行 `scripts/evaluate.py`，综合分低于阈值则构建失败
 5. **增量文档更新** — 定时爬取 + 增量导入，保持知识库与 LangChain 官方文档同步
 
@@ -297,7 +297,7 @@ flowchart LR
         G --> I["RRF Fusion\nscore = Σ 1/(60+rank)"]
         H --> I
         I --> J[Top-K Chunks]
-        J --> K["RAGGenerator\nOllama qwen2.5:3b"]
+        J --> K["RAGGenerator\nOllama qwen2.5:7b"]
         K --> L[Answer + Sources]
     end
 
@@ -314,7 +314,7 @@ flowchart LR
 
 - **Hybrid Retrieval** — cosine similarity + BM25 fused via Reciprocal Rank Fusion (`score = Σ 1/(60 + rank)`)
 - **100 pages** of LangChain official documentation, **1,596 chunks** at optimal chunk_size=512
-- **Fully offline** — local LLM via Ollama (qwen2.5:3b), no cloud API required
+- **Fully offline** — local LLM via Ollama (qwen2.5:7b), no cloud API required
 - **Dual interface** — RESTful API (FastAPI + Swagger UI) + interactive chat frontend (Streamlit)
 - **Evaluation framework** — 4 metrics with zero additional API cost
 - **Empirical chunk size selection** — controlled experiment across 256 / 512 / 1024
@@ -326,7 +326,7 @@ git clone https://github.com/GuddXzy/rag-from-scratch.git
 cd rag-from-scratch
 python -m venv .venv && .venv\Scripts\activate   # Windows
 pip install -e ".[dev]"
-ollama pull qwen2.5:3b
+ollama pull qwen2.5:7b
 python -m scripts.ingest --docs-dir ./data/langchain_docs
 python -m streamlit run src/frontend/streamlit_app.py
 ```

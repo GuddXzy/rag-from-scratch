@@ -83,7 +83,7 @@ with st.sidebar:
         - Embeddings: `all-MiniLM-L6-v2`
         - 向量库: ChromaDB
         - 检索: Hybrid (Semantic + BM25 + RRF)
-        - LLM: Ollama `qwen2.5:3b`
+        - LLM: Ollama `qwen2.5:7b`
         - Frontend: Streamlit
         """
     )
@@ -179,7 +179,7 @@ def run_rag(question: str):
 
 # ── Main chat area ─────────────────────────────────────────────────────────────
 st.title("LangChain Docs AI Assistant")
-st.caption("基于 LangChain 官方文档的智能问答系统 | Hybrid RAG + Ollama qwen2.5:3b")
+st.caption("基于 LangChain 官方文档的智能问答系统 | Hybrid RAG + Ollama qwen2.5:7b")
 
 # Consume any pending question from the sidebar sample buttons
 pending = st.session_state.pop("pending_question", "")  # pop resets to ""
