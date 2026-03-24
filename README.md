@@ -99,7 +99,7 @@ Composite = 四项指标等权平均。完整原始数据：[`eval/chunk_experim
 ### 前置条件
 
 - Python 3.11+
-- 安装并运行 [Ollama](https://ollama.ai)
+- 安装并运行 [Ollama](https://ollama.ai)，拉取模型：
 
 ```bash
 ollama pull qwen2.5:7b
@@ -112,43 +112,90 @@ git clone https://github.com/GuddXzy/rag-from-scratch.git
 cd rag-from-scratch
 
 python -m venv .venv
-# Windows:
-.venv\Scripts\activate
-# macOS / Linux:
-source .venv/bin/activate
+.venv\Scripts\activate        # Windows
+# source .venv/bin/activate   # macOS / Linux
 
 pip install -e ".[dev]"
 ```
 
-### 导入文档
+### 导入文档（一次性）
 
 ```bash
 python -m scripts.ingest --docs-dir ./data/langchain_docs
 
-# 清空重新导入
+# 清空后重新导入：
 python -m scripts.ingest --docs-dir ./data/langchain_docs --reset
 ```
 
-### 启动
+---
+
+## 三种使用方式
+
+### 方式一：Streamlit 聊天界面（推荐）
+
+> 图形化交互界面，支持中英文切换，含系统状态面板和评估指标展示。
 
 ```bash
-# Streamlit 聊天界面  →  http://localhost:8501
 python -m streamlit run src/frontend/streamlit_app.py
-
-# FastAPI 接口  →  http://localhost:8000/docs（Swagger UI）
-python -m scripts.serve
-python -m scripts.serve --reload        # 开发模式热重载
-
-# 命令行查询（无需启动服务）
-python -m scripts.query "What is LCEL?"
-python -m scripts.query "What is LCEL?" --no-generate   # 仅检索，不调用 LLM
-
-# 运行评估
-python -m scripts.evaluate
-python -m scripts.evaluate --output ./eval/results.json
 ```
 
-### Docker
+浏览器访问 **http://localhost:8501**
+
+功能亮点：
+- 🌐 侧栏语言切换（中文 / English）
+- 💬 多轮对话 + 引用来源折叠展示
+- 📊 实时显示 ChromaDB chunk 数量、评估指标
+- 🔖 一键填入示例问题
+
+---
+
+### 方式二：FastAPI REST 接口
+
+> 标准 HTTP 接口，适合集成到其他应用或用 Apifox / Postman 调试。
+
+```bash
+python -m scripts.serve
+# 开发模式（热重载）：
+python -m scripts.serve --reload
+```
+
+浏览器访问 **http://localhost:8000/docs** 查看 Swagger UI
+
+| 方法 | 路径 | 说明 |
+|------|------|------|
+| `GET`  | `/health`       | 健康检查 |
+| `GET`  | `/stats`        | chunk 数量、模型信息 |
+| `POST` | `/query`        | RAG 问答，返回 answer + sources |
+| `POST` | `/query/stream` | 同上，逐 token SSE 流式输出 |
+| `POST` | `/ingest`       | 从本地目录导入文档 |
+
+```bash
+# 示例请求
+curl -X POST http://localhost:8000/query \
+  -H "Content-Type: application/json" \
+  -d '{"question": "What is LCEL?", "top_k": 5}'
+```
+
+---
+
+### 方式三：命令行直接查询
+
+> 无需启动任何服务，适合快速测试或脚本集成。
+
+```bash
+# 完整问答（检索 + LLM 生成）
+python -m scripts.query "What is LCEL?"
+
+# 仅检索，不调用 LLM（速度更快，不消耗计算资源）
+python -m scripts.query "How does hybrid retrieval work?" --no-generate
+
+# 指定返回条数
+python -m scripts.query "What are agents?" --top-k 3
+```
+
+---
+
+### Docker（一键启动 API）
 
 ```bash
 docker compose up --build
@@ -203,32 +250,12 @@ rag-from-scratch/
 
 ---
 
-## API 文档
-
-Base URL: `http://localhost:8000` | 交互式文档: `/docs`
-
-| 方法 | 路径 | 说明 |
-|------|------|------|
-| `GET` | `/health` | 健康检查，返回 `{"status": "ok"}` |
-| `GET` | `/stats` | chunk 数量、collection 名称、模型信息 |
-| `POST` | `/query` | RAG 查询 → `answer`、`sources`、`latency_ms` |
-| `POST` | `/query/stream` | 同上，逐 token SSE 流式输出 |
-| `POST` | `/ingest` | 从本地目录导入文档 |
-
-**示例：**
+## 运行测试
 
 ```bash
-curl -X POST http://localhost:8000/query \
-  -H "Content-Type: application/json" \
-  -d '{"question": "What is LCEL?", "top_k": 5}'
-```
-
-```json
-{
-  "answer": "LCEL (LangChain Expression Language) is a declarative way to compose chains...",
-  "sources": ["langchain_overview.md", "langchain_lcel.md"],
-  "latency_ms": 3241.5
-}
+pytest tests/test_pipeline.py -v    # 快速，无需下载模型
+pytest tests/test_retrieval.py -v   # 首次运行下载 ~80 MB 模型
+pytest                               # 全部测试
 ```
 
 ---
@@ -280,46 +307,9 @@ MIT
 <details>
 <summary>Click to expand</summary>
 
-### Architecture
-
-```mermaid
-flowchart LR
-    subgraph Ingestion["Ingestion (one-time)"]
-        A["MD / HTML / TXT\nDocuments"] --> B[DocumentLoader]
-        B --> C["DocumentChunker\ntwo-stage: headers → size"]
-        C --> D["SentenceTransformer\nall-MiniLM-L6-v2"]
-        D --> E[(ChromaDB)]
-    end
-
-    subgraph Query["Query (real-time)"]
-        F[User Question] --> G["VectorStore\nSemantic Search"]
-        F --> H["BM25\nKeyword Search"]
-        G --> I["RRF Fusion\nscore = Σ 1/(60+rank)"]
-        H --> I
-        I --> J[Top-K Chunks]
-        J --> K["RAGGenerator\nOllama qwen2.5:7b"]
-        K --> L[Answer + Sources]
-    end
-
-    subgraph Interfaces
-        L --> M["FastAPI\nREST / SSE"]
-        L --> N["Streamlit\nChat UI"]
-    end
-
-    E --> G
-    E --> H
-```
-
-### Features
-
-- **Hybrid Retrieval** — cosine similarity + BM25 fused via Reciprocal Rank Fusion (`score = Σ 1/(60 + rank)`)
-- **100 pages** of LangChain official documentation, **1,596 chunks** at optimal chunk_size=512
-- **Fully offline** — local LLM via Ollama (qwen2.5:7b), no cloud API required
-- **Dual interface** — RESTful API (FastAPI + Swagger UI) + interactive chat frontend (Streamlit)
-- **Evaluation framework** — 4 metrics with zero additional API cost
-- **Empirical chunk size selection** — controlled experiment across 256 / 512 / 1024
-
 ### Quick Start
+
+**Prerequisites:** Python 3.11+, [Ollama](https://ollama.ai) running locally.
 
 ```bash
 git clone https://github.com/GuddXzy/rag-from-scratch.git
@@ -328,12 +318,60 @@ python -m venv .venv && .venv\Scripts\activate   # Windows
 pip install -e ".[dev]"
 ollama pull qwen2.5:7b
 python -m scripts.ingest --docs-dir ./data/langchain_docs
-python -m streamlit run src/frontend/streamlit_app.py
 ```
+
+### Method 1 — Streamlit Chat UI (Recommended)
+
+> Bilingual interface (Chinese / English toggle in sidebar), chat history, source citations.
+
+```bash
+python -m streamlit run src/frontend/streamlit_app.py
+# Open: http://localhost:8501
+```
+
+### Method 2 — FastAPI REST API
+
+> Standard HTTP interface with auto-generated Swagger docs.
+
+```bash
+python -m scripts.serve
+# Open: http://localhost:8000/docs
+```
+
+```bash
+curl -X POST http://localhost:8000/query \
+  -H "Content-Type: application/json" \
+  -d '{"question": "What is LCEL?", "top_k": 5}'
+```
+
+| Method | Path | Description |
+|--------|------|-------------|
+| `GET`  | `/health`       | Health check |
+| `GET`  | `/stats`        | Chunk count, model info |
+| `POST` | `/query`        | RAG Q&A → answer + sources |
+| `POST` | `/query/stream` | Streaming SSE output |
+| `POST` | `/ingest`       | Import documents |
+
+### Method 3 — Command Line
+
+> No server needed, great for scripting or quick tests.
+
+```bash
+python -m scripts.query "What is LCEL?"
+python -m scripts.query "What is LCEL?" --no-generate   # retrieve only, skip LLM
+```
+
+### Features
+
+- **Hybrid Retrieval** — cosine similarity + BM25 fused via RRF (`score = Σ 1/(60 + rank)`)
+- **100 pages** of LangChain official docs, **1,596 chunks** at optimal chunk_size=512
+- **Fully offline** — Ollama qwen2.5:7b, no cloud API
+- **Bilingual UI** — Streamlit frontend with Chinese / English toggle
+- **Evaluation** — 4 metrics (Faithfulness / Answer Relevancy / Context Precision / Recall)
 
 ### Tech Decisions
 
-- **ChromaDB** — zero-infrastructure, in-process, swap to Pinecone with one adapter change
+- **ChromaDB** — zero-infrastructure, in-process; swap to Pinecone with one adapter change
 - **Hybrid retrieval** — BM25 handles exact keyword matches that pure cosine similarity misses
 - **Ollama** — fully offline, no API cost, model-agnostic generator
 - **chunk_size=512** — empirically selected; leads in 3 of 4 metrics vs. 256 and 1024

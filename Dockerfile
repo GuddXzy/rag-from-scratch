@@ -7,12 +7,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
     && rm -rf /var/lib/apt/lists/*
 
-# 先装依赖 (利用 Docker 缓存层)
-COPY pyproject.toml .
-RUN pip install --no-cache-dir -e ".[dev]"
-
-# 复制源码
+# 先复制源码，再安装（editable install 需要 src/ 目录存在）
 COPY . .
+RUN pip install --no-cache-dir -e ".[dev]"
 
 # 暴露端口
 EXPOSE 8000
