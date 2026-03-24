@@ -55,12 +55,16 @@ TRANSLATIONS = {
         "no_eval":             "eval/chunk_experiment_report.json 未找到",
         "sample_q_header":     "示例问题",
         "sample_questions": [
-            "What is RAG and how does it work?",
-            "What is the difference between agents and chains?",
-            "What is LangGraph and when should I use it?",
-            "How to add memory to a LangChain agent?",
-            "How does LangChain support streaming?",
+            "RAG 是什么？它是如何工作的？",
+            "LangChain 中 Agent 和 Chain 有什么区别？",
+            "LangGraph 是什么？什么时候应该使用它？",
+            "如何给 LangChain Agent 添加记忆功能？",
+            "LangChain 如何支持流式输出？",
         ],
+        "metric_faithfulness":       "忠实度",
+        "metric_answer_relevancy":   "答案相关性",
+        "metric_context_precision":  "上下文精度",
+        "metric_context_recall":     "上下文召回",
         "chat_placeholder":    "请输入您的问题...",
         "thinking_spinner":    "正在检索并生成回答...",
         "sources_expander":    "引用来源 (Sources)",
@@ -97,6 +101,10 @@ TRANSLATIONS = {
         "eval_header":         "Eval Metrics (chunk_size=512)",
         "composite_caption":   "Composite: {:.4f} — best config",
         "no_eval":             "eval/chunk_experiment_report.json not found",
+        "metric_faithfulness":       "Faithfulness",
+        "metric_answer_relevancy":   "Answer Relevancy",
+        "metric_context_precision":  "Context Precision",
+        "metric_context_recall":     "Context Recall",
         "sample_q_header":     "Sample Questions",
         "sample_questions": [
             "What is RAG and how does it work?",
@@ -215,11 +223,11 @@ with st.sidebar:
         )
         if best:
             m1, m2 = st.columns(2)
-            m1.metric("Faithfulness",      f"{best['faithfulness']:.3f}")
-            m2.metric("Answer Relevancy",  f"{best['answer_relevancy']:.3f}")
+            m1.metric(t("metric_faithfulness"),      f"{best['faithfulness']:.3f}")
+            m2.metric(t("metric_answer_relevancy"),  f"{best['answer_relevancy']:.3f}")
             m3, m4 = st.columns(2)
-            m3.metric("Context Precision", f"{best['context_precision']:.3f}")
-            m4.metric("Context Recall",    f"{best['context_recall']:.3f}")
+            m3.metric(t("metric_context_precision"), f"{best['context_precision']:.3f}")
+            m4.metric(t("metric_context_recall"),    f"{best['context_recall']:.3f}")
             composite = report.get("best_config", {}).get("composite_score", 0)
             st.caption(t("composite_caption", composite))
     else:
